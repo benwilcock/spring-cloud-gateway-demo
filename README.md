@@ -1,8 +1,8 @@
 # spring-cloud-gateway-demo
 
-To build: `mvn install`
+To build: `./mvnw install`
 
-To run: `mvn spring-boot:run`
+To run: `./mvnw spring-boot:run`
 
 To test (with httpie):
 
