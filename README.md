@@ -1,45 +1,15 @@
 # spring-cloud-gateway-demo
 
-To build: `./mvnw install`
+Code and articles to help folks get started with [Spring Cloud Gateway][3].
 
-To run: `./mvnw spring-boot:run`
+You can learn about the code read the accompanying articles [here][4].
 
-To test (with httpie):
+## Authors
 
-````bash
-http localhost:8080/get
-````
+* [Ben Wilcock][1] – Spring Marketing, Pivotal.
+* [Brian McClain][2] – Technical Marketing, Pivotal.
 
-Sould obtain the response: 
-
-````bash
-HTTP/1.1 200 OK
-Access-Control-Allow-Credentials: true
-Access-Control-Allow-Origin: *
-Content-Encoding: gzip
-Content-Length: 255
-Content-Type: application/json
-Date: Tue, 04 Jun 2019 15:31:54 GMT
-Referrer-Policy: no-referrer-when-downgrade
-Server: nginx
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1; mode=block
-
-{
-    "args": {},
-    "headers": {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate",
-        "Forwarded": "proto=http;host=\"localhost:8080\";for=\"0:0:0:0:0:0:0:1:59216\"",
-        "Hello": "World",
-        "Host": "httpbin.org",
-        "User-Agent": "HTTPie/1.0.2",
-        "X-Forwarded-Host": "localhost:8080"
-    },
-    "origin": "0:0:0:0:0:0:0:1, 2.102.146.151, ::1",
-    "url": "https://localhost:8080/get"
-}
-````
-
-> Note: A custom HTTP Header named "Hello" has been added during processing with the value "world".
+[1]: https://twitter.com/benbravo73
+[2]: https://twitter.com/BrianMMcClain
+[3]: https://spring.io/projects/spring-cloud-gateway
+[4]: https://benwilcock.github.io/spring-cloud-gateway-demo
