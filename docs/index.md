@@ -10,7 +10,7 @@ To follow along, you might benefit from these tools...
 
 ## The Articles
 
-1. [Getting Started with Spring Cloud Gateway][6]
+1. [Getting Started with Spring Cloud Gateway][6] – begin a simple gateway project by re-routing a request and adding headers to it.
 
 ----
 
