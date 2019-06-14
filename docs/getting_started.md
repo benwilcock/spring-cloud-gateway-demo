@@ -1,20 +1,5 @@
 # Getting Started with Spring Cloud Gateway
 
-* [Ben Wilcock][1] – Spring Marketing, Pivotal.
-* [Brian McClain][2] – Technical Marketing, Pivotal.
-
-----
-
-Microservice architectures are great, but as your application programming interfaces (APIs) start to grow, so do the challenges related to its maintenance. 
-
-For example, as an existing API matures and adds new features it will need to take its client along with it on the journey. When the details of an API change, clients need to adjust in order to work with these changes. This process takes time and can really slow your APIs evolution and interfere with your ability to iterate quickly. 
-
-Offering multiple APIs can help but brings with it its own set of challenges. How do you route requests and responses to the correct API? How do you manage any message disparity? How do you support clients when your endpoints can move around? 
-
-And then there’s the question of integrating with legacy systems. Not everyone is so lucky that they get to build apps and services into an entirely new ecosystem, instead needing to play nicely with preexisting systems for things like authentication and other backing services. 
-
-An API Gateway helps you to solve these problems and more. It is a powerful architectural tool which you can use to manage message routing, filtering and proxying in your microservice architecture. Many API Management Gateways can be dated back to SOA and these tend to have been implemented as centralized servers. But as microservices became more popular, modern lightweight independent and decentralized micro-gateway applications have appeared – such as [Spring Cloud Gateway][3].  
-
 In this first article in our series on Spring Cloud Gateway, we’ll start by doing something very simple – reroute requests coming into a gateway and forward them to another service elsewhere. We’ll also insert a simple HTTP Header to the request just to show one more example of what’s possible with a gateway.
 
 #### Tools you'll need:
