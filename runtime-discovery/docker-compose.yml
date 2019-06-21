@@ -1,0 +1,42 @@
+version: '2'
+services:
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  discovery:
+    image: benwilcock/discovery-service
+    container_name: discovery
+    ports:
+      - "8761:8761"
+  trading-engine:
+    image: benwilcock/trading-engine
+    container_name: trading-engine
+    depends_on:
+      - discovery
+      - rabbitmq
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  trader-app:
+    image: benwilcock/trader-app
+    container_name: trader-app
+    depends_on:
+      - discovery
+      - rabbitmq
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  trader-app-ui:
+    image: benwilcock/trader-app-ui
+    container_name: trader-app-ui
+    depends_on:
+      - trader-app
+      - trading-engine
+    ports:
+      - "3000:3000"
+

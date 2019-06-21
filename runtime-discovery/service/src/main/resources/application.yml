@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: service
+
+server:
+  port: 9092
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - mappings
+          - env
+          - health
+          - info
