@@ -11,13 +11,17 @@ For the code, follow the tutorial [here][2] which adds the `/greeting` REST endp
 ### Creating a Eureka Discovery Server
 
 ```bash
-http https://start.spring.io/starter.zip dependencies==cloud-eureka-server baseDir==registry name==registry applicationName==registry groupId==com.scg artifactId==registry javaVersion==11 | tar -xzvf -
+http https://start.spring.io/starter.zip dependencies==cloud-eureka-server baseDir==registry name==registry applicationName==Registry groupId==com.scg artifactId==registry javaVersion==11 | tar -xzvf -
 ```
 
 Add `@EnableEurekaServer` annotation to the `Application.java` class.
 > **Tip:** Using Java 11? Add the missing JAXB dependencies to the `pom.xml` file before packaging.
 
 ### Creating a Gateway
+
+```bash
+http https://start.spring.io/starter.zip dependencies==actuator,cloud-gateway,cloud-eureka baseDir==gateway name==gateway applicationName==Gateway groupId==com.scg artifactId==gateway javaVersion=11 | tar -xzvf -
+```
 
 ## Running stuff
 

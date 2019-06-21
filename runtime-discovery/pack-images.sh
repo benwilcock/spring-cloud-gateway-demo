@@ -12,3 +12,8 @@ echo "Packing the Eureka Discovery Server"
 cd registry
 pack build benwilcock/scg-demo-registry
 cd ..
+
+echo "Packing the Spring Cloud Gateway"
+cd gateway
+pack build benwilcock/scg-demo-gateway
+cd ..

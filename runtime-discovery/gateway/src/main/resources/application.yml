@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: gateway
+  
+  cloud:
+    gateway:
+      routes:
+      - id: service
+        uri: lb://service
+        predicates:
+        - Path=/service/**
+        filters:
+        - StripPrefix=1
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - mappings
+          - env
+          - health
+          - info
