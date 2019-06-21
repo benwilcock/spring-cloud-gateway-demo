@@ -6,12 +6,12 @@ services:
     expose:
       - "9092"
   registry:
-    image: benwilcock/scg-demo-registry
+    image: benwilcock/scg-demo-registry:latest
     container_name: registry
     expose:
       - "8761"
   gateway:
-    image: benwilcock/scg-demo-gateway
+    image: benwilcock/scg-demo-gateway:latest
     container_name: gateway
     links:
       - registry
