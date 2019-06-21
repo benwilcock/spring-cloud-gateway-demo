@@ -14,7 +14,8 @@ For the code, follow the tutorial [here][2] which adds the `/greeting` REST endp
 http https://start.spring.io/starter.zip dependencies==cloud-eureka-server baseDir==registry name==registry applicationName==registry groupId==com.scg artifactId==registry javaVersion==11 | tar -xzvf -
 ```
 
-And add `@EnableEurekaServer` annotation to the `Application.java` class.
+Add `@EnableEurekaServer` annotation to the `Application.java` class.
+> **Tip:** Using Java 11? Add the missing JAXB dependencies to the `pom.xml` file before packaging.
 
 ### Creating a Gateway
 
