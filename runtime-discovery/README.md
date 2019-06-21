@@ -6,6 +6,8 @@
 http https://start.spring.io/starter.zip dependencies==web,actuator,cloud-eureka baseDir==service name==service applicationName==Service groupId==com.scg artifactId==service | tar -xzvf -
 ```
 
+For the code, follow the tutorial [here][2] which adds the `/greeting` REST endpoint to the service.
+
 ### Creating a Eureka Discovery Server
 
 ```bash
@@ -44,3 +46,4 @@ pack build benwilcock/gateway
 
 
 [1]: https://buildpacks.io/docs/app-journey/
+[2]: https://spring.io/guides/gs/rest-service/
