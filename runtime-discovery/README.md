@@ -26,7 +26,26 @@ http https://start.spring.io/starter.zip dependencies==actuator,cloud-gateway,cl
 ## Running stuff
 
 ```bash
-docker run --rm -p 8080:9092 -d benwilcock/scg-demo-service
+docker-compose up
+```
+
+## Testing Stuff
+
+Once `docker-compose up` has started and been given a chance to settle, you cat try out the greeting service
+via the gateway as follows: `http localhost/service/greeting`. 
+
+```bash
+http localhost/service/greeting
+
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Date: Mon, 24 Jun 2019 12:22:56 GMT
+transfer-encoding: chunked
+
+{
+    "content": "Hello, World!",
+    "id": 1
+}
 ```
 
 ## Building images

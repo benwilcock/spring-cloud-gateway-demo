@@ -3,8 +3,19 @@ spring:
     name: service
 
 server:
-  port: 9092
+  port: 8762
 
+info:
+  app:
+    name: ${spring.application.name}
+
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl: 
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+    healthcheck:
+      enabled: true
 
 management:
   endpoints:

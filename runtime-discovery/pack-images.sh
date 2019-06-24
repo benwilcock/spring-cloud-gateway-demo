@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Performing a clean Maven build"
-./mvnw clean package
+./mvnw clean package -DskipTests=true
 
 echo "Packing the Service"
 cd service
