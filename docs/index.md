@@ -25,6 +25,10 @@ To follow along with these tutorials, you might benefit from these tools...
 
 In this first article [Getting Started with Spring Cloud Gateway][6] we begin by constructing a simple gateway project which handles the re-routing of a HTTP request whilst adding headers to it.
 
+## 2. Service Hiding & Runtime Discovery
+
+In this second installment we look at [Service Hiding & Runtime Discovery][8]. We construct a hidden network of services using Docker and then create a Spring Cloud Gateway reverse-proxy to police our network boundary and facilitate access to these hidden services. As part of the demo, we also illustrate how Spring Cloud Eureka Server can allow the discovery of services at runtime.
+
 ----
 
 [License][7]
@@ -37,3 +41,4 @@ In this first article [Getting Started with Spring Cloud Gateway][6] we begin by
 [5]: https://spring.io/tools
 [6]: getting_started.md
 [7]: LICENSE
+[8]: runtime-discovery-and-service-hiding.md

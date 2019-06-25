@@ -1,4 +1,4 @@
-# Spring Cloud Gateway – Hiding Services & Runtime Discovery 
+# Hiding Services & Runtime Discovery 
 
 ## Things You'll Need
 
@@ -30,7 +30,7 @@ Now, Navigate to [http://localhost/service/greeting][11] in your browser. You sh
 
 When you issued this http request from your browser, it was handled by the Gateway. The Greeting service _is_ publicly accessible. The request was forwarded by the Gateway to the Greeting Service on your behalf and the response was then routed back to you by the Gateway.
 
-#### Finally, let's take a look at the Registry of Services:
+#### Now, let's take a look at the Registry of Services:
 
 The microservices on the Docker network are each registering themselves with the Registry server just after boot (this may take a couple of minutes, so be patient). This Registry server acts an an address book. If the services move, or if new instances are created, they are added to the register.
 
@@ -44,13 +44,21 @@ When you're done, use `docker-compose down` to shutdown the servers (or `ctrl-C`
 
 ## How It Works
 
-In this demo we have three servers. You can build these three Spring Boot projects for yourself, but the code can be downloaded to give you a quick-start mechanism. The three servers are all run inside a "hidden" network which is provided by Docker Compose in this sample. Only the Spring Cloud Gateway server is exposed to the outside world so all traffic must go via the Gateway. Here's the three servers and what they each do...
+In this demo we have three servers. The three servers are all run inside a "hidden" network which is provided by Docker Compose. Only the Spring Cloud Gateway server is exposed to the outside world, so all traffic must go via this Gateway.
 
-1. [The Gateway][5] – The Gateway server acts as the gatekeeper. All inbound and outbound traffic flows through this portal. The Gateway has configuration that specifies some routes that can be used to talk to other services inside the network. These routes use the 'logical' names of the target services. These logical names are turned into real addresses by the Registry server.
-2. [The Registry][6] – The Registry server acts as a registry of all the services inside the hidden network. It allows the Gateway to find the other services mentioned in it's configuration.
+You can recreate these three Spring Boot projects for yourself from scratch, but the code can be downloaded to give you a quick-start. Here's a description of the three servers and what they each do...
+
+1. [The Gateway][5] – The Gateway server acts as our gatekeeper for all HTTP traffic. All inbound and outbound traffic flows through this portal – it acts as the bridge between the outside world (your browser) and the internal Docker network. The Gateway has configuration that specifies some routes that can be used to talk to other services inside the network. These routes use the 'logical' names of the target services. These logical names are turned into real addresses by the Registry server.
+
+
+2. [The Registry][6] – acts as a registry of all the services inside the hidden network. It allows the Gateway to find the other services mentioned in it's configuration using only logical service names.
+
+
 3. [The Greeting Service][7] – (imaginatively titled 'service' in the [docker-compose.yml][8]) is a simple greeting service based on the [Spring.io](spring.io) guide "[Building a RESTful Web Service][4]".
 
-As you can see in the [`docker-compose.yml` configuration][8], Docker is is configured to only allow external calls to reach the Gateway – on port `80`. The other servers, the Registry and the Service, cannot be reached directly from outside the Docker network. To allow traffic to be forwarded to them, the Gateway is configured to offer some URL paths which redirect traffic to the these "hidden" servers. You can see the configuration for this in the Gateway's [application.yml file][9]. This configuration is using the "logical" names of these servers and the `lb:` (load balancer) protocol as you can see in the configuration snippet below.
+As you can see in the [`docker-compose.yml` configuration][8], Docker is is configured to only allow external calls to reach the Gateway – on port `80`. The other servers, the Registry and the Service, cannot be reached directly from outside the Docker network. 
+
+To allow traffic to be forwarded to the hidden servers, the Gateway is configured to offer some URL paths which redirect traffic to the these "hidden" servers. You can see the configuration for this in the Gateway's [application.yml file][9]. This configuration is using the "logical" names of these servers and the `lb:` (load balancer) protocol as you can see in the configuration snippet below.
 
 ```yaml
 spring:
@@ -67,6 +75,8 @@ spring:
         - StripPrefix=1
 ...
 ```
+
+By using these 'logical' server names, the Gateway can discover the true location of these services at runtime. We cann this 'runtime-discovery'.
 
 ## Starting From Scratch
 
@@ -107,7 +117,7 @@ cd <code-dir>
 pack build benwilcock/scg-demo-service
 ```
 
-When you're done building all three, `docker images` should show all your images are available in the image cache as follows. 
+When you're done building all three, `docker images` should show all your images are available in the image cache as follows.
 
 ```bash
 $ docker images
@@ -115,21 +125,13 @@ REPOSITORY                     TAG                 IMAGE ID            CREATED  
 benwilcock/scg-demo-gateway    latest              4b1cf52e1cd9        21 hours ago        262MB
 benwilcock/scg-demo-registry   latest              f48f8ed3ef10        21 hours ago        265MB
 benwilcock/scg-demo-service    latest              33340b97b834        21 hours ago        260MB
-``` 
+```
 
 > Note: you may have chosen different image names.
 
 ### Creating the Docker Compose group
 
 Use [this file][8] as a guide. The goal here is to only expose the Gateway directly and to hide the Registry and the Greeting Service. There are some things to remember. The Docker images names must match the images that you built. The ports must match the ports you configured (`8080` by default for Gateway and Service, `8761` for the Registry). You'll notice that in our code we have injected the location of the Registry into the other servers at runtime using the JAVA_OPTS environment variable. Inside the Docker network, the Registry can be reached on `http://registry:8761/eureka`.
-
-## Running stuff
-
-```bash
-docker-compose up # Add `-d` to tun in the background
-```
-
-
 
 [1]: https://www.docker.com/products/docker-desktop
 [2]: https://buildpacks.io/docs/app-journey/
@@ -142,4 +144,4 @@ docker-compose up # Add `-d` to tun in the background
 [9]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/gateway/src/main/resources/application.yml
 [10]: http://localhost/registry
 [11]: http://localhost/service/greeting
-[12]: ../../blob/master/img/registry.png
+[12]: ../blob/master/img/registry.png
