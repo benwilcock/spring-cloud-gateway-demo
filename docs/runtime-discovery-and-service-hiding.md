@@ -68,21 +68,19 @@ When you're done, use `ctrl-C` in your terminal to shutdown the Docker services.
 
 ## How It Works
 
-In this demo we have three servers. The three servers are all run inside a "hidden" network which is provided by Docker Compose. Only the Spring Cloud Gateway server is exposed to the outside world, so all traffic must go via this Gateway.
+In this demo we have three servers. These three servers are all running inside a "hidden" network which is provided by Docker Compose. Only the [Gateway server][5] is exposed to the outside world, so all http traffic must go via this Gateway.
 
-You can recreate these three Spring Boot projects for yourself from scratch, but the code can be downloaded to give you a quick-start. Here's a description of the three servers and what they each do...
+Here's a description of the three servers and what they each do...
 
-1. [The Gateway][5] – The Gateway server acts as our gatekeeper for all HTTP traffic. All inbound and outbound traffic flows through this portal – it acts as the bridge between the outside world (your browser) and the internal Docker network. The Gateway has configuration that specifies some routes that can be used to talk to other services inside the network. These routes use the 'logical' names of the target services. These logical names are turned into real addresses by the Registry server.
-
+1. [The Gateway][5] – The Gateway server acts as our gatekeeper for all HTTP traffic. All inbound and outbound traffic flows through this portal – it acts as the bridge between the outside world (your browser) and the services on the internal Docker network. The Gateway has configuration that specifies routes which can be used externally to talk to the services inside the network. These routes use the 'logical' names of the target services. These logical names are turned into real addresses by the Registry server.
 
 2. [The Registry][6] – acts as a registry of all the services inside the hidden network. It allows the Gateway to find the other services mentioned in it's configuration using only logical service names.
 
-
 3. [The Greeting Service][7] – (imaginatively titled 'service' in the [docker-compose.yml][8]) is a simple greeting service based on the [Spring.io](spring.io) guide "[Building a RESTful Web Service][4]".
 
-As you can see in the [`docker-compose.yml` configuration][8], Docker is is configured to only allow external calls to reach the Gateway – on port `80`. The other servers, the Registry and the Service, cannot be reached directly from outside the Docker network. 
+As you can see in the [`docker-compose.yml` configuration][8], Docker is is configured to only allow external calls to reach the Gateway – on port `80`. The other servers, the Registry and the Greeting Service, cannot be reached directly from outside the Docker network.
 
-To allow traffic to be forwarded to the hidden servers, the Gateway is configured to offer some URL paths which redirect traffic to the these "hidden" servers. You can see the configuration for this in the Gateway's [application.yml file][9]. This configuration is using the "logical" names of these servers and the `lb:` (load balancer) protocol as you can see in the configuration snippet below.
+The Gateway's URL paths can be seen in the Gateway's [application.yml file][9]. This configuration is using the "logical" names of these servers and the `lb:` (load balancer) protocol as you can see in the extract below.
 
 ```yaml
 spring:
@@ -100,13 +98,13 @@ spring:
 ...
 ```
 
-By using these 'logical' server names, the Gateway can discover the true location of these services at runtime. We cann this 'runtime-discovery'.
+By using these 'logical' server names, the Gateway can use the Registry to discover the true location of these services at runtime. We call this 'runtime-discovery'.
 
 ## Starting From Scratch
 
-This really isn't necessary, but if you like to get your hands dirty, here's some pointers of what you need to do to recreate the demo.
+This really isn't necessary, but if you like to get your hands dirty, here's some pointers to help you recreate the demo from scratch.
 
-### Creating a Greeting service that includes Eureka Discovery Client:
+### Creating a Greeting Service that includes Eureka Discovery Client:
 
 ```bash
 http https://start.spring.io/starter.zip dependencies==web,actuator,cloud-eureka baseDir==service name==service applicationName==Service groupId==com.scg artifactId==service | tar -xzvf -
@@ -114,7 +112,7 @@ http https://start.spring.io/starter.zip dependencies==web,actuator,cloud-eureka
 
 For the code, follow the tutorial [here][4] which adds a `/greeting` REST endpoint to a Spring Boot service and responds with `{"id":1,"content":"Hello, World!"}` when called.
 
-### Creating a Eureka Discovery Server
+### Creating a Netflix Eureka (Registry) Server
 
 ```bash
 http https://start.spring.io/starter.zip dependencies==cloud-eureka-server baseDir==registry name==registry applicationName==Registry groupId==com.scg artifactId==registry javaVersion==11 | tar -xzvf -
@@ -132,16 +130,16 @@ http https://start.spring.io/starter.zip dependencies==actuator,cloud-gateway,cl
 
 You'll need to configure the gateway to forward requests. Use [this example][9] as a guide.
 
-## Building Server Images
+## Building The Server Images
 
-To use [Cloud Native Buildpacks][2], you simply open a command line in the directory containing your Spring application code and then issue the command `pack build <your-image-name>`. The convention is to use your Docker username followed by a `/` and then the name of the image you're creating (for example 'benwilcock/scg-demo-service'). You may choose whatever names you like, but remember that these must match the image names you chose in your [`docker-compose.yml` file][8].
+To use [Cloud Native Buildpacks][2], you simply open a command line in the directory containing your Spring application code and then issue the command `pack build <your-image-name>`. The convention for image names is to use your Docker username followed by a `/` and then the name of the image you're creating (for example 'benwilcock/scg-demo-service'). You may choose whatever names you like, but remember that these must match the image names you write in your [`docker-compose.yml` file][8].
 
 ```bash
 cd <code-dir>
 pack build benwilcock/scg-demo-service
 ```
 
-When you're done building all three, `docker images` should show all your images are available in the image cache as follows.
+When you're done building all three, the `docker images` command should show that all of your images are available for use in the image cache as follows.
 
 ```bash
 $ docker images
@@ -151,11 +149,11 @@ benwilcock/scg-demo-registry   latest              f48f8ed3ef10        21 hours 
 benwilcock/scg-demo-service    latest              33340b97b834        21 hours ago        260MB
 ```
 
-> Note: you may have chosen different image names.
+> Note: you may have chosen different image names to these.
 
-### Creating the Docker Compose group
+### Creating the Docker Compose file
 
-Use [this file][8] as a guide. The goal here is to only expose the Gateway directly and to hide the Registry and the Greeting Service. There are some things to remember. The Docker images names must match the images that you built. The ports must match the ports you configured (`8080` by default for Gateway and Service, `8761` for the Registry). You'll notice that in our code we have injected the location of the Registry into the other servers at runtime using the JAVA_OPTS environment variable. Inside the Docker network, the Registry can be reached on `http://registry:8761/eureka`.
+Use [this file][8] as a guide. The goal here is to only expose the Gateway directly to the outside world and to hide the Registry and the Greeting Service inside the docker network. There are some things to remember. The Docker images names must match the images that you built. The ports must match the ports you configured (`8080` by default for the Gateway and the Greeting Service when starting from scratch, `8761` for the Registry). You'll notice that in our code we have injected the location of the Registry into the other servers at runtime using the `JAVA_OPTS` environment variable. Inside the Docker network, the Registry can be reached on `http://registry:8761/eureka`.
 
 [1]: https://www.docker.com/products/docker-desktop
 [2]: https://buildpacks.io/docs/app-journey/
