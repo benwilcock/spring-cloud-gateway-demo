@@ -8,13 +8,13 @@ In this demo, we'll look at all of these features and use them together in one s
 
 ## Things You'll Need
 
-* [Docker Desktop][1] - Docker will provide our "pseudo production environment" in this demo. We'll use it to hide some services inside it's runtime network – making them unreachable using regular direct requests.
+* [Docker Desktop][1] - Docker will provide our "pseudo production environment". We'll use Docker to hide running services making them unreachable using regular direct requests.
 
-* [Cloud Native Buildpacks][2] - We'll use the Cloud Native Buildpacks `pack` command to create Docker images of our applications for us using an open-source operating system and an OpenJDK distribution.
+* [Cloud Native Buildpacks][2] - We'll use the Cloud Native Buildpacks `pack` command to build Docker images of our applications using open-source operating systems and an OpenJDK distribution.
 
-* [The Source Code][3] - You don't have to code the whole thing, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub and look in the `runtime-discovery` folder.
+* [The Source Code][3] - You don't have to code anything, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub and look in the `runtime-discovery` folder.
 
-* Your favorite web browser. 
+* Your favorite web browser.
   
 ## Quickstart Guide
 
@@ -32,19 +32,19 @@ In this demo, we'll look at all of these features and use them together in one s
 docker-compose up
 ```
 
-After a few minutes, Docker should have used the images you built and the configuration provided in the `docker-compose.yml` to start up the demo environment for you. 
+After a few minutes, Docker should have used the images you built and the configuration provided in the `docker-compose.yml` to start up the demo environment for you.
 
-> Waiting a couple of extra minutes is advised, just to make sure that everything we started has had a chance to communicate and settle down. 
+> Waiting a couple of extra minutes is advised, just to make sure that everything we started has had a chance to communicate and settle down.
 
 ## Let's Test It...
 
 #### First, Check that the Greeting Service is Hidden:
 
-The Greeting Service operates on port `8762` inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached". This is because the Greeting Service is hidden. Essentially it exists on inside a private network (as if it were behind a company firewall for example). It should not be possible for us to talk to the greeting service directly.
+The Greeting Service operates on port `8762` inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached" by your browser. This is because the Greeting Service is hidden inside the Docker network (as if it were behind a company firewall for example). It should not be possible for us to talk to the greeting service directly in this way.
 
 #### Next, Access the Greeting Service via the Gateway:
 
-Now, Navigate your browser to [http://localhost/service/greeting][11] in your browser. You should get a perfectly valid response with content similar to the "Hello, World" JSON shown below.
+Now, Navigate your browser to [http://localhost/service/greeting][11]. You should get a perfectly valid response with content similar to the "Hello, World" JSON shown below.
 
 ```json
 { "id": 1, "content": "Hello, World!"}
@@ -52,7 +52,7 @@ Now, Navigate your browser to [http://localhost/service/greeting][11] in your br
 
 > Note: We're using the default http port for this request – so the port number has been omitted.
 
-When you issued this http request from your browser, it was handled by the Gateway. The Gateway service _is_ publicly accessible (it is mapped to port `80`, the default for http). Your request was forwarded by the Gateway to the Greeting Service on your behalf, and the response was then routed back to you by the Gateway.
+When you issued this new http request from your browser, it was sent to, and handled by, the Gateway. The Gateway service _is_ publicly accessible (it is mapped to port `80`, the default for http). Your request was forwarded by the Gateway to the Greeting Service on your behalf, and the response was then routed back to you by the Gateway.
 
 #### Now, let's take a look at the Registry of Services:
 
