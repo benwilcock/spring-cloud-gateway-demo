@@ -1,6 +1,6 @@
 # Hiding Services & Runtime Discovery 
 
-It's rare that a company wants every service and every API to be publicly available. Most companies would prefer to keep all their services private by default and then expose services publicly on a need-to-know basis. We think of these services as 'secret services`, mainly because it's the closest that Brian and I will ever get to being James Bond. [Spring Cloud Gateway][14] can help us control access to these 'secret' services using simple Java instructions or configuration in yaml format.
+It's rare that a company wants every service and every API to be publicly available. Most companies would prefer to keep all their services secret by default only exposing them publicly if absolutely necessary. [Spring Cloud Gateway][14] can help in this endeavour by allowing us to control access to these 'secret' services using simple Java instructions or configuration files in yaml format.
 
 It's also true that networks of services have a habit of changing over time, often without much warning. It helps, therefore, if the applications on your network can find each other dynamically at runtime, no matter what their current IP address might be. [Spring Cloud Netflix Eureka Server][13] provides just such a feature, and prevents the need to constantly re-configure your services as things change. It also allows you to use human friendly names to describe the location of your applications rather than IP addresses, and handles load balancing duties if there are multiple instances.
 
