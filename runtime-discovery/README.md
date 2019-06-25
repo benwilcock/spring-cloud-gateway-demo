@@ -1,4 +1,4 @@
-# Hiding Services Behind A Spring Cloud Gateway
+# Spring Cloud Gateway – Hiding Services & Runtime Discovery 
 
 ## Things You'll Need
 
@@ -7,7 +7,6 @@
 * [The Source Code][3] - `git clone` (or download and `unzip`) [this project][3] from GitHub. 
   
 ## Quickstart
-
 
 1. First, get all the "things you'll need" from the list above and install them.
 2. Next, `cd` to the project folder and then run the `./pack-images.sh` script – this will build the source code and create Docker images for all the services in this demo and place them in your local Docker image cache.
