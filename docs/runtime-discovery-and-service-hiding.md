@@ -26,7 +26,7 @@ In this demo, we'll look at all of these features and use them together in one s
 ./pack-images.sh
 ```
 
-1. Finally, at the command line, run `docker-compose up` – this will bring up the test environment in the background (or you can add `-d` if you want to run in the background and not see any server logs).
+3. Finally, at the command line, run `docker-compose up` – this will bring up the test environment in the background (or you can add `-d` if you want to run in the background and not see any server logs).
 
 ```bash
 docker-compose up
