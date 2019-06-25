@@ -9,8 +9,11 @@ In this demo, we'll look at all of these features and use them together in one s
 ## Things You'll Need
 
 * [Docker Desktop][1] - Docker will provide our "pseudo production environment" in this demo. We'll use it to hide some services inside it's runtime network – making them unreachable using regular direct requests.
-* [Cloud Native Buildpacks][2] - We'll have Cloud Native Buildpacks do the heavy lifting of creating a Docker image of our applications using an open-source operating system and an OpenJDK distribution.
+
+* [Cloud Native Buildpacks][2] - We'll use the Cloud Native Buildpacks `pack` command to create Docker images of our applications for us using an open-source operating system and an OpenJDK distribution.
+
 * [The Source Code][3] - You don't have to code the whole thing, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub and look in the `runtime-discovery` folder.
+
 * Your favorite web browser. 
   
 ## Quickstart Guide
