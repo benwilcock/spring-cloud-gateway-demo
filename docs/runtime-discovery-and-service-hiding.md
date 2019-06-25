@@ -14,7 +14,7 @@ In this demo, we'll look at all of these features and use them together in one s
 
 * [The Source Code][3] - You don't have to code anything, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub and look in the `runtime-discovery` folder.
 
-* Your favorite web browser.
+* Your favorite web browser and terminal applications.
   
 ## Quickstart Guide
 
@@ -64,7 +64,7 @@ To view the current registry, point your browser at [http://localhost/registry][
 
 #### Finally, lets shut things down
 
-When you're done, use `docker-compose down` to shutdown the servers (or `ctrl-C` if you ran in the foreground).
+When you're done, use `ctrl-C` in your terminal to shutdown the Docker services.
 
 ## How It Works
 
