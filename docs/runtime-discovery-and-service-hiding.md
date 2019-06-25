@@ -1,10 +1,13 @@
 # Hiding Services & Runtime Discovery 
 
+
+
 ## Things You'll Need
 
 * [Docker Desktop][1] - Docker will provide our "pseudo production environment" in this demo. We'll use it to hide some services inside it's runtime network – making them unreachable using regular direct requests.
 * [Cloud Native Buildpacks][2] - We'll have Cloud Native Buildpacks do the heavy lifting of creating a Docker image of our applications using an open-source operating system and an OpenJDK distribution.
-* [The Source Code][3] - `git clone` (or download and `unzip`) [this project][3] from GitHub. 
+* [The Source Code][3] - `git clone` (or download and `unzip`) [this project][3] from GitHub.
+* Your favorite web browser. 
   
 ## Quickstart
 
@@ -16,11 +19,11 @@
 
 #### First, Check that the Greeting Service is Hidden:
 
-The Greeting Service operates on port `8762` inside the Docker network. Let's try to call it from the browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached". This is because the Greeting Service is hidden. Essentially it exists on inside a private network (as if it were behind a company firewall for example). It should not be possible for us to talk to the greeting service directly.
+The Greeting Service operates on port `8762` inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached". This is because the Greeting Service is hidden. Essentially it exists on inside a private network (as if it were behind a company firewall for example). It should not be possible for us to talk to the greeting service directly.
 
 #### Next, Access the Greeting Service via the Gateway:
 
-Now, Navigate to [http://localhost/service/greeting][11] in your browser. You should get a perfectly valid response with content similar to the "Hello, World" JSON shown below.
+Now, Navigate your browser to [http://localhost/service/greeting][11] in your browser. You should get a perfectly valid response with content similar to the "Hello, World" JSON shown below.
 
 ```json
 { "id": 1, "content": "Hello, World!"}
@@ -28,7 +31,7 @@ Now, Navigate to [http://localhost/service/greeting][11] in your browser. You sh
 
 > Note: We're using the default http port for this request – so the port number has been omitted.
 
-When you issued this http request from your browser, it was handled by the Gateway. The Greeting service _is_ publicly accessible. The request was forwarded by the Gateway to the Greeting Service on your behalf and the response was then routed back to you by the Gateway.
+When you issued this http request from your browser, it was handled by the Gateway. The Gateway service _is_ publicly accessible (it is mapped to port `80`, the default for http). Your request was forwarded by the Gateway to the Greeting Service on your behalf, and the response was then routed back to you by the Gateway.
 
 #### Now, let's take a look at the Registry of Services:
 
@@ -36,7 +39,7 @@ The microservices on the Docker network are each registering themselves with the
 
 To view the current registry, point your browser at [http://localhost/registry][10] and you should see a screen similar to the one below.
 
-![Screenshot from the Registry console][11]
+![Screenshot from the Registry console][12]
 
 #### Finally, lets shut things down
 
