@@ -147,4 +147,4 @@ Use [this file][8] as a guide. The goal here is to only expose the Gateway direc
 [9]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/gateway/src/main/resources/application.yml
 [10]: http://localhost/registry
 [11]: http://localhost/service/greeting
-[12]: ../img/registry.png
+[12]: ../docs/img/registry.png
