@@ -1,21 +1,39 @@
 # Hiding Services & Runtime Discovery 
 
+It's rare that a company wants every service and every API to be publicly available. Most companies would prefer to keep all their services private by default and then expose services publicly on a need-to-know basis. We think of these services as 'secret services`, mainly because it's the closest that Brian and I will ever get to being James Bond. [Spring Cloud Gateway][14] can help us control access to these 'secret' services using simple Java instructions or configuration in yaml format.
 
+It's also true that networks of services have a habit of changing over time, often without much warning. It helps, therefore, if the applications on your network can find each other dynamically at runtime, no matter what their current IP address might be. [Spring Cloud Netflix Eureka Server][13] provides just such a feature, and prevents the need to constantly re-configure your services as things change. It also allows you to use human friendly names to describe the location of your applications rather than IP addresses, and handles load balancing duties if there are multiple instances.
+
+In this demo, we'll look at all of these features and use them together in one sample.
 
 ## Things You'll Need
 
 * [Docker Desktop][1] - Docker will provide our "pseudo production environment" in this demo. We'll use it to hide some services inside it's runtime network – making them unreachable using regular direct requests.
 * [Cloud Native Buildpacks][2] - We'll have Cloud Native Buildpacks do the heavy lifting of creating a Docker image of our applications using an open-source operating system and an OpenJDK distribution.
-* [The Source Code][3] - `git clone` (or download and `unzip`) [this project][3] from GitHub.
+* [The Source Code][3] - You don't have to code the whole thing, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub and look in the `runtime-discovery` folder.
 * Your favorite web browser. 
   
-## Quickstart
+## Quickstart Guide
 
 1. First, get all the "things you'll need" from the list above and install them.
-2. Next, `cd` to the project folder and then run the `./pack-images.sh` script – this will build the source code and create Docker images for all the services in this demo and place them in your local Docker image cache.
-3. Finally, at the command line, run `docker-compose up -d` – this will bring up the test environment in the background (or you can omit the `-d` if you want to run in the foreground and see the logs for each server as they boot).
 
-## Let's Try It...
+2. Next, `cd` to the project folder and then run the `./pack-images.sh` script – this will build the source code and create Docker images for all the services in this demo and place them in your local Docker image cache.
+
+```bash
+./pack-images.sh
+```
+
+1. Finally, at the command line, run `docker-compose up` – this will bring up the test environment in the background (or you can add `-d` if you want to run in the background and not see any server logs).
+
+```bash
+docker-compose up
+```
+
+After a few minutes, Docker should have used the images you built and the configuration provided in the `docker-compose.yml` to start up the demo environment for you. 
+
+> Waiting a couple of extra minutes is advised, just to make sure that everything we started has had a chance to communicate and settle down. 
+
+## Let's Test It...
 
 #### First, Check that the Greeting Service is Hidden:
 
@@ -148,3 +166,5 @@ Use [this file][8] as a guide. The goal here is to only expose the Gateway direc
 [10]: http://localhost/registry
 [11]: http://localhost/service/greeting
 [12]: ../docs/img/registry.png
+[13]: https://spring.io/guides/gs/service-registration-and-discovery/
+[14]: https://spring.io/guides/gs/gateway/
