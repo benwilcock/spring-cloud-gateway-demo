@@ -18,22 +18,22 @@ In this demo, we'll look at all of these features and use them together in one s
   
 ## Quickstart Guide
 
-1. First, get all the "things you'll need" from the list above and install them.
+* First, get all the "things you'll need" from the list above and install them.
 
-2. Next, we will build & package all the source code into Java JARs & create Docker containers (images) for all the services in this demo. We can do this with the provided `pack-images.sh` script as follows:
+* Next, we will build & package all the source code into Java JARs & create Docker containers (images) for all the services in this demo. We can do this with the provided `pack-images.sh` script as follows:
 
   ```bash
   cd runtime-discovery
   ./pack-images.sh
   ```
 
-3. Now, we can bring up the test environment in the background.
+* Now, we can bring up the test environment in the background.
 
   ```bash
   docker-compose up -d # Remove the `-d` to see all the jumbled log output from the containers
   ```
 
-4. After a few minutes, Docker will have started all our containers following the configuration provided in the `docker-compose.yml` file.
+* After a few minutes, Docker will have started all our containers following the configuration provided in the `docker-compose.yml` file.
 
 > Waiting a couple of extra minutes is advised, just to make sure that everything we started has had a chance to communicate and settle down.
 
