@@ -130,7 +130,7 @@ Finally, be sure to check out SpringOne Platform, the premier conference for bui
 [9]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/gateway/src/main/resources/application.yml
 [10]: http://localhost/registry
 [11]: http://localhost/service/greeting
-[12]: /docs/img/registry.png
+[12]: /img/registry.png
 [13]: https://spring.io/guides/gs/service-registration-and-discovery/
 [14]: https://spring.io/guides/gs/gateway/
 [15]: https://content.pivotal.io/practitioners/getting-started-with-spring-cloud-gateway-3
