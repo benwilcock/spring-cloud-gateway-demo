@@ -4,7 +4,7 @@ It's rare for a company to want every API to be publicly accessible. Most prefer
 
 [Spring Cloud Gateway][14] can help. Spring Cloud Gateway allows you to route traffic to your APIs using simple Java™ instructions (which we saw [in the last article][15]) or with YAML configuration files (which we’ll demonstrate in this one). To hide your services, you set up your network so that the only server accessible from the outside is the gateway. The gateway then becomes a gate-keeper, controlling ingress and egress from outside. It’s a very popular pattern.
 
-Cloud-based services also have a habit of changing location and granularity without much warning. To cope better with this, you can combine a gateway with a service registry to allow the applications on your network to find each other dynamically at runtime. If you do this, your applications will be much more resilient to changes. [Spring Cloud Netflix Eureka Server][13] is one such service registry. 
+Cloud-based services also have a habit of changing location and granularity without much warning. To cope better with this, you can combine a gateway with a service registry to allow the applications on your network to find each other dynamically at runtime. If you do this, your applications will be much more resilient to changes. [Spring Cloud Netflix Eureka Server][13] is one such service registry.
 
 In this post, we'll look at Spring Cloud’s gateway and registry components and illustrate how you can use them together to make your applications more secure and more reliable. 
 
@@ -49,12 +49,12 @@ Start up the Docker test environment in the background. We’re using docker-com
 
 Wait. Docker will start all the containers (using the configuration provided in the [docker-compose.yml][8] file). Waiting a couple of extra minutes here is advised. It gives Docker time to start everything and gives the applications a chance to communicate and settle down. If you do wait, you should see the Gateway and the Greeting Service register themselves with the Registry. There will be lots of logs, but within them will be lines like these from the registry:
 
+
 ```bash
 registry    | 2019-06-28 12:19:01.780  INFO 1 --- [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance REGISTRY/db1d80613789:registry:8761 with status UP (replication=false)
 registry    | 2019-06-28 12:19:02.380  INFO 1 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance GATEWAY/9c0c0c9ba027:gateway:8760 with status UP (replication=true)
 registry    | 2019-06-28 12:19:02.382  INFO 1 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SERVICE/fe7e38b21cac:service:8762 with status UP (replication=true)
 ```
-
 ## Let's Try It...
 
 #### First, Check that the Greeting Service is Hidden:
@@ -139,7 +139,7 @@ Before you go, why not sign up for [SpringOne Platform][18], the premier confere
 [9]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/gateway/src/main/resources/application.yml
 [10]: http://localhost:8080/registry
 [11]: http://localhost:8080/service/greeting
-[12]: ../docs/img/registry.png
+[12]: /img/registry.png
 [13]: https://spring.io/guides/gs/service-registration-and-discovery/
 [14]: https://spring.io/guides/gs/gateway/
 [15]: https://content.pivotal.io/practitioners/getting-started-with-spring-cloud-gateway-3
@@ -149,3 +149,4 @@ Before you go, why not sign up for [SpringOne Platform][18], the premier confere
 [19]: https://springoneplatform.io/2019/convince-your-manager
 [20]: https://docs.docker.com/compose/
 [21]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/pack-images.yml
+[22]: /img/unreachable.png
