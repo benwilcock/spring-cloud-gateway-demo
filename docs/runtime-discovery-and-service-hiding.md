@@ -61,6 +61,8 @@ registry    | 2019-06-28 12:19:02.382  INFO 1 --- [nio-8761-exec-6] c.n.e.regist
 
 The Greeting Service operates on port `8762` and is hidden inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached" by your browser. This is because the Greeting Service is hidden inside the Docker network (as if it were behind a company firewall). It shouldn't be possible for us to talk to the greeting service directly.
 
+![Screenshot from the browser window showing that the service is unreachable][22]
+
 #### Next, Access the Greeting Service via the Gateway:
 
 Now, Navigate your browser to [http://localhost:8080/service/greeting][11]. You should now get a valid response with content similar to the "Hello, World" JSON shown below:
