@@ -19,7 +19,7 @@ Because this arrangement requires a particular setup, we’ve provided ready-to-
 
 * [Cloud Native Buildpacks][2] – We'll use Cloud Native Buildpacks to build Docker container images for us. Buildpacks embody several DevOps best practices, including hardened open-source operating systems and free to use OpenJDK distributions.
   
-## Start The Demo
+## Let’s Get Started...
 
 #### Step 1:
 
@@ -118,7 +118,7 @@ spring:
 ```
 
 By using these 'logical' server names, the Gateway can use the Registry to discover the true location of these services at runtime.
-## Recap
+## Wrapping Up
 
 In this blog, we’ve only just scratched the surface of what’s possible. With the entire Spring toolkit at its disposal, it quickly becomes apparent how flexible and powerful Spring Cloud Gateway can be. If you take a look in [the source code for this sample][3], you’ll notice that with just a few lines of code and a few dependencies, we can easily integrate Spring Boot microservices with Eureka, and can control access to our APIs. 
 
