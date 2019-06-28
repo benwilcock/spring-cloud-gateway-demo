@@ -1,12 +1,12 @@
 version: '3'
 services:
   registry:
-    image: benwilcock/scg-demo-registry:latest
+    image: scg-demo-registry:latest
     container_name: registry
     expose: 
       - "8761"
   service:
-    image: benwilcock/scg-demo-service:latest
+    image: scg-demo-service:latest
     container_name: service
     expose: 
       - "8762"
@@ -16,10 +16,10 @@ services:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://registry:8761/eureka
   gateway:
-    image: benwilcock/scg-demo-gateway:latest
+    image: scg-demo-gateway:latest
     container_name: gateway
     ports:
-      - "127.0.0.1:80:8760"
+      - "127.0.0.1:8080:8760"
     depends_on: 
       - registry
       - service
