@@ -161,7 +161,7 @@ Before you finish, why not sign up for [SpringOne Platform 2019][18] – the pre
 
 
 [unreachable]: https://static.spring.io/blog/bwilcock/20190701/unreachable.png "Screenshot from the browser window showing that the service is unreachable"
-[registry]: https://static.spring.io/blog/bwilcock/20190701/unreachable.png "Screenshot showing the Eureka registry console window in a browser"
+[registry]: https://static.spring.io/blog/bwilcock/20190701/registry.png "Screenshot showing the Eureka registry console window in a browser"
 
 [30]: https://twitter.com/benbravo73
 [31]: https://twitter.com/BrianMMcClain
