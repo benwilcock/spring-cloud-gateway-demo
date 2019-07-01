@@ -21,11 +21,11 @@ To follow along with these tutorials, you might benefit from these tools...
 * [HTTPie][4] – a command line client for http calls 
 * Your favorite Java IDE (check out [Spring Tools][5] if you don’t have one)
 
-## Getting Started With Spring Cloud Gateway
+## Episode 1: Getting Started With Spring Cloud Gateway
 
 In this first article [Getting Started with Spring Cloud Gateway][6] we begin by constructing a simple gateway project which handles the re-routing of a HTTP request whilst adding headers to it.
 
-## Service Hiding & Runtime Discovery
+## Episode 2: Service Hiding & Runtime Discovery
 
 In this second installment we look at [Service Hiding & Runtime Discovery][8]. We construct a hidden network of services using Docker and then create a Spring Cloud Gateway reverse-proxy to police our network boundary and facilitate access to these hidden services. As part of the demo, we also illustrate how Spring Cloud Eureka Server can allow the discovery of services at runtime.
 
