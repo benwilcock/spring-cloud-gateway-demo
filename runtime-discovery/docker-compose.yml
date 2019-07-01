@@ -5,9 +5,9 @@ services:
     container_name: registry
     expose: 
       - "8761"
-  service:
+  greeting-service:
     image: scg-demo-service:latest
-    container_name: service
+    container_name: greeting-service
     expose: 
       - "8762"
     depends_on: 
@@ -22,7 +22,7 @@ services:
       - "127.0.0.1:8080:8760"
     depends_on: 
       - registry
-      - service
+      - greeting-service
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://registry:8761/eureka

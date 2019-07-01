@@ -1,5 +1,8 @@
 # Hiding Services & Runtime Discovery 
 
+[Ben Wilcock][30] – Spring Marketing, Pivotal.
+[Brian McClain][31] – Technical Marketing, Pivotal.
+
 It's rare for a company to want every API to be publicly accessible. Most prefer to keep their services secret by default, only exposing APIs publicly when absolutely necessary. 
 
 [Spring Cloud Gateway][14] can help. Spring Cloud Gateway allows you to route traffic to your APIs using simple Java™ instructions (which we saw [in the last article][15]) or with YAML configuration files (which we’ll demonstrate in this one). To hide your services, you set up your network so that the only server accessible from the outside is the gateway. The gateway then becomes a gate-keeper, controlling ingress and egress from outside. It’s a very popular pattern.
@@ -18,6 +21,8 @@ Because this arrangement requires a particular setup, we’ve provided ready-to-
 * [Docker Desktop][1] – Docker will provide our pseudo-production environment. We'll use it to hide our services in a private network.
 
 * [Cloud Native Buildpacks][2] – We'll use Cloud Native Buildpacks to build Docker container images for us. Buildpacks embody several DevOps best practices, including hardened open-source operating systems and free to use OpenJDK distributions.
+
+* About 10-15 minutes, depending on the speed of your internet etc.
   
 ## Let’s Get Started...
 
@@ -77,11 +82,11 @@ When you issued this new HTTP request from your browser, it was sent to, and han
 
 The microservices on the Docker network are each registering themselves with the Registry server (this may take a couple of minutes, so be patient). The Registry server acts an address book for the services. If the services move, or if new instances are created, they will add themselves to the registry.
 
-To view the current list of registered services, point your browser at [http://localhost/registry][10]. You should see a screen similar to the one below.
+To view the current list of registered services, point your browser at [http://localhost:8080/registry][10]. You should see a screen similar to the one below.
 
 ![Screenshot from the Registry console, listing several services][12]
 
-#### Finally, Clean Up:
+#### Finally, Shutting Down:
 
 When you're done, use `ctrl-C` in your terminal to shut down the Docker services. If for any reason this fails to work, you can also use `docker-compose down` from the `runtime-discovery` folder. Using either technique, you should see output similar to this:
 
@@ -90,6 +95,8 @@ Stopping gateway  ... done
 Stopping service  ... done
 Stopping registry ... done
 ```
+
+Further clean-up can be achieved using `docker-compose rm -f`.
 
 ## How It Works
 
@@ -101,7 +108,7 @@ Here's a description of the 3 servers and what each does...
 
 2. [The Registry][6] – acts as a phone book of all the services on the hidden network. It allows the Gateway to find the Greeting Service using only its logical name.
 
-3. [The Greeting Service][7] – (imaginatively titled 'service' in the [docker-compose.yml][8]) is a simple REST service based on the [Spring.io](spring.io) guide "[Building a RESTful Web Service][4]".
+3. [The Greeting Service][7] – is a simple REST service based on the popular [Spring.io](spring.io) guide "[Building a RESTful Web Service][4]".
 
 As you can see in the [`docker-compose.yml`][8], Docker is configured to only allow external calls to reach the Gateway – on port `80`. The other servers (the Registry, and the Greeting Service), cannot be reached directly from outside.
 
@@ -126,9 +133,9 @@ spring:
 By using these 'logical' server names, the Gateway can use the Registry to discover the true location of these services at runtime.
 ## Wrapping Up
 
-With the entire Spring toolkit at its disposal, it quickly becomes apparent how flexible and powerful Spring Cloud Gateway can be. If you dig into [the source code][3], you’ll notice that with just a few lines of Java and a few dependencies, we can easily integrate Spring Boot microservices with Eureka, and control access to our service’s APIs. 
+With the entire Spring toolkit at your disposal, it quickly becomes apparent how flexible and powerful Spring Cloud Gateway can be. If you dig into [the source code][3], you’ll notice that with just a few lines of Java and a few dependencies, we can easily integrate Spring Boot microservices with Eureka, and control access to our service’s APIs. 
 
-Before you go, why not sign up for [SpringOne Platform][18], the premier conference for building scalable applications that delight users. Join thousands of like-minded Spring developers to learn, share, and have fun in Austin, TX from October 7th to 10th.  Use the discount code **S1P_Save200** when registering to save money on your ticket and use [this page][19] if you need help convincing your manager. See you there.
+Before you finish, why not sign up for [SpringOne Platform 2019][18] – the premier conference for building scalable applications that delight users. Join thousands of like-minded Spring developers to learn, share, and have fun in Austin, TX from October 7th to 10th.  Use the discount code **S1P_Save200** when registering to save money on your ticket and use [this page][19] if you need help convincing your manager. See you there.
 
 [1]: https://www.docker.com/products/docker-desktop
 [2]: https://buildpacks.io/docs/app-journey/
@@ -152,3 +159,6 @@ Before you go, why not sign up for [SpringOne Platform][18], the premier confere
 [20]: https://docs.docker.com/compose/
 [21]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/pack-images.yml
 [22]: /img/unreachable.png
+
+[30]: https://twitter.com/benbravo73
+[31]: https://twitter.com/BrianMMcClain
