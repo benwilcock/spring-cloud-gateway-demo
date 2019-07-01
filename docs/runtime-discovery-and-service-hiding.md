@@ -66,7 +66,7 @@ registry    | 2019-06-28 12:19:02.382  INFO 1 --- [nio-8761-exec-6] c.n.e.regist
 
 The Greeting Service operates on port `8762` and is hidden inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached" by your browser. This is because the Greeting Service is hidden inside the Docker network (as if it were behind a company firewall). It shouldn't be possible for us to talk to the greeting service directly instead, you’ll see an error page similar to this one below.
 
-![Screenshot from the browser window showing that the service is unreachable][22]
+![Screenshot from the browser window showing that the service is unreachable][unreachable]
 
 #### Next, Access the Greeting Service via the Gateway:
 
@@ -84,7 +84,7 @@ The microservices on the Docker network are each registering themselves with the
 
 To view the current list of registered services, point your browser at [http://localhost:8080/registry][10]. You should see a screen similar to the one below.
 
-![Screenshot from the Registry console, listing several services][12]
+![Screenshot from the Registry console, listing several services][registry]
 
 #### Finally, Shutting Down:
 
@@ -148,7 +148,7 @@ Before you finish, why not sign up for [SpringOne Platform 2019][18] – the pre
 [9]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/gateway/src/main/resources/application.yml
 [10]: http://localhost:8080/registry
 [11]: http://localhost:8080/service/greeting
-[12]: /img/registry.png
+
 [13]: https://spring.io/guides/gs/service-registration-and-discovery/
 [14]: https://spring.io/guides/gs/gateway/
 [15]: https://content.pivotal.io/practitioners/getting-started-with-spring-cloud-gateway-3
@@ -158,7 +158,10 @@ Before you finish, why not sign up for [SpringOne Platform 2019][18] – the pre
 [19]: https://springoneplatform.io/2019/convince-your-manager
 [20]: https://docs.docker.com/compose/
 [21]: https://github.com/benwilcock/spring-cloud-gateway-demo/blob/master/runtime-discovery/pack-images.yml
-[22]: /img/unreachable.png
+
+
+[unreachable]: https://static.spring.io/blog/bwilcock/20190701/unreachable.png "Screenshot from the browser window showing that the service is unreachable"
+[registry]: https://static.spring.io/blog/bwilcock/20190701/unreachable.png "Screenshot showing the Eureka registry console window in a browser"
 
 [30]: https://twitter.com/benbravo73
 [31]: https://twitter.com/BrianMMcClain
