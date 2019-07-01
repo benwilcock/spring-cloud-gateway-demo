@@ -1,3 +1,7 @@
 theme: jekyll-theme-slate
 title: Getting Started with Spring Cloud Gateway
 description: A series of articles and demos to help you get the most from Spring's API Gateway project
+plugins:
+  - jekyll-sitemap
+  - jemoji
+  - jekyll-feed
