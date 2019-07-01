@@ -3,7 +3,7 @@
 [Ben Wilcock][30] – Spring Marketing, Pivotal.
 [Brian McClain][31] – Technical Marketing, Pivotal.
 
-It's rare for a company to want every API to be publicly accessible. Most prefer to keep their services secret by default, only exposing APIs publicly when absolutely necessary. 
+It's rare for a company to want _every_ API to be publicly accessible. Most prefer to keep their services secret by default, only exposing APIs publicly when absolutely necessary. 
 
 [Spring Cloud Gateway][14] can help. Spring Cloud Gateway allows you to route traffic to your APIs using simple Java™ instructions (which we saw [in the last article][15]) or with YAML configuration files (which we’ll demonstrate in this one). To hide your services, you set up your network so that the only server accessible from the outside is the gateway. The gateway then becomes a gate-keeper, controlling ingress and egress from outside. It’s a very popular pattern.
 
@@ -14,6 +14,7 @@ In this post, we'll look at Spring Cloud’s gateway and registry components and
 Because this arrangement requires a particular setup, we’ve provided ready-to-run code which you can download and run. We’ll be using Docker to orchestrate our services and emulate a private network. We’ll then talk to our running services using HTTPie.
 
 ## Things You'll Need
+
 * Java (version 8 is assumed), plus your favorite web browser and terminal applications.
 
 * [The Source Code][3] – There’s no need to write any code this time, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub.
@@ -38,17 +39,17 @@ cd runtime-discovery
 
 Build & package the gateway, registry, and service into JARs using Maven, and then create Docker containers for each of them. We have provided a handy [pack-images][21] script to do this:
 
-  ```bash
- ./pack-images.sh
-  ```
+```bash
+./pack-images.sh
+```
 
 #### Step 3:
 
 Start up the Docker test environment in the background. We’re using docker-compose here as it can start multiple containers and create a private network for them to communicate on:
 
-  ```bash
-  docker-compose up
-  ```
+```bash
+docker-compose up
+```
 
 #### Step 4:
 
@@ -60,11 +61,12 @@ registry    | 2019-06-28 12:19:01.780  INFO 1 --- [nio-8761-exec-2] c.n.e.regist
 registry    | 2019-06-28 12:19:02.380  INFO 1 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance GATEWAY/9c0c0c9ba027:gateway:8760 with status UP (replication=true)
 registry    | 2019-06-28 12:19:02.382  INFO 1 --- [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SERVICE/fe7e38b21cac:service:8762 with status UP (replication=true)
 ```
+
 ## Let's Try It...
 
 #### First, Check that the Greeting Service is Hidden:
 
-The Greeting Service operates on port `8762` and is hidden inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached" by your browser. This is because the Greeting Service is hidden inside the Docker network (as if it were behind a company firewall). It shouldn't be possible for us to talk to the greeting service directly instead, you’ll see an error page similar to this one below.
+The Greeting Service operates on port `8762` and is hidden inside the Docker network. Let's try to call it from your favorite browser using [http://localhost:8762/greeting](http://localhost:8762/greeting). You should be told that "the site can't be reached" by your browser. This is because the Greeting Service is hidden inside the Docker network (as if it were behind a company firewall). It shouldn't be possible for us to talk to the greeting service directly. Instead, you’ll see an error page similar to the one below.
 
 ![Screenshot from the browser window showing that the service is unreachable][unreachable]
 
@@ -131,11 +133,12 @@ spring:
 ```
 
 By using these 'logical' server names, the Gateway can use the Registry to discover the true location of these services at runtime.
+
 ## Wrapping Up
 
 With the entire Spring toolkit at your disposal, it quickly becomes apparent how flexible and powerful Spring Cloud Gateway can be. If you dig into [the source code][3], you’ll notice that with just a few lines of Java and a few dependencies, we can easily integrate Spring Boot microservices with Eureka, and control access to our service’s APIs. 
 
-Before you finish, why not sign up for [SpringOne Platform 2019][18] – the premier conference for building scalable applications that delight users. Join thousands of like-minded Spring developers to learn, share, and have fun in Austin, TX from October 7th to 10th.  Use the discount code **S1P_Save200** when registering to save money on your ticket and use [this page][19] if you need help convincing your manager. See you there.
+Before you finish, why not sign up for [SpringOne Platform 2019][18] – the premier conference for building scalable applications that delight users. Join thousands of like-minded Spring developers to learn, share, and have fun in Austin, TX from October 7th to 10th.  Use the discount code **S1P_Save200** when registering to save money on your ticket. If you need help convincing your manager use [this page][19]. See you there.
 
 [1]: https://www.docker.com/products/docker-desktop
 [2]: https://buildpacks.io/docs/app-journey/
@@ -161,7 +164,7 @@ Before you finish, why not sign up for [SpringOne Platform 2019][18] – the pre
 
 
 [unreachable]: https://static.spring.io/blog/bwilcock/20190701/unreachable.png "Screenshot from the browser window showing that the service is unreachable"
-[registry]: https://static.spring.io/blog/bwilcock/20190701/registry.png "Screenshot showing the Eureka registry console window in a browser"
+[registry]: https://static.spring.io/blog/bwilcock/20190701/registry.png "Screenshot showing the Eureka registry console in a browser"
 
 [30]: https://twitter.com/benbravo73
 [31]: https://twitter.com/BrianMMcClain
