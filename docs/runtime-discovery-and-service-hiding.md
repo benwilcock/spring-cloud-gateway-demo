@@ -1,4 +1,4 @@
-# Hiding Services & Runtime Discovery
+# Hiding Services & Runtime Discovery 
 
 [Ben Wilcock][30] – Spring Marketing, Pivotal.
 [Brian McClain][31] – Technical Marketing, Pivotal.
@@ -14,7 +14,6 @@ In this post, we'll look at Spring Cloud’s gateway and registry components and
 Because this arrangement requires a particular setup, we’ve provided ready-to-run code which you can download and run. We’ll be using Docker to orchestrate our services and emulate a private network. We’ll then talk to our running services using HTTPie.
 
 ## Things You'll Need
-
 * Java (version 8 is assumed), plus your favorite web browser and terminal applications.
 
 * [The Source Code][3] – There’s no need to write any code this time, simply `git clone` (or download and `unzip`) [this project's source code repository][3] from GitHub.
@@ -23,7 +22,7 @@ Because this arrangement requires a particular setup, we’ve provided ready-to-
 
 * [Cloud Native Buildpacks][2] – We'll use Cloud Native Buildpacks to build Docker container images for us. Buildpacks embody several DevOps best practices, including hardened open-source operating systems and free to use OpenJDK distributions.
 
-* About 10-15 minutes, depending on the speed of your internet etc.
+* About 10-15 minutes, depending on the speed of your internet, etc.
   
 ## Let’s Get Started...
 
