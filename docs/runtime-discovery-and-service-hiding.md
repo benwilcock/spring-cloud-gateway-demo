@@ -1,4 +1,8 @@
-# Hiding Services & Runtime Discovery 
+---
+title: Hiding Services & Runtime Discovery 
+layout: post
+tags: [gateway, spring, API, hiding, registry, discovery]
+---
 
 [Ben Wilcock][30] – Spring Marketing, Pivotal.
 [Brian McClain][31] – Technical Marketing, Pivotal.
