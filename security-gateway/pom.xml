@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.scg</groupId>
-    <artifactId>runtime-discovery-demo</artifactId>
+    <artifactId>security-gateway-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>service</module>
+        <module>secured-service</module>
         <module>registry</module>
-        <module>gateway</module>
+        <module>security-gateway</module>
     </modules>
 
 </project>

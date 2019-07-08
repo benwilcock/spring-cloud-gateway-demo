@@ -6,8 +6,8 @@ services:
     expose: 
       - "8761"
   greeting-service:
-    image: scg-demo-service:latest
-    container_name: greeting-service
+    image: scg-demo-secured-service:latest
+    container_name: secured-greeting-service
     expose: 
       - "8762"
     depends_on: 
@@ -16,8 +16,8 @@ services:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://registry:8761/eureka
   gateway:
-    image: scg-demo-gateway:latest
-    container_name: gateway
+    image: scg-demo-security-gateway:latest
+    container_name: security-gateway
     ports:
       - "127.0.0.1:8080:8760"
     depends_on: 
