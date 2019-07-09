@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class service {
+public class SecuredService {
 
-	public static void main(String[] args) {
-		SpringApplication.run(service.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(SecuredService.class, args);
+  }
 
 }

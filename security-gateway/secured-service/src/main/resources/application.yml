@@ -1,21 +1,30 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: service
-
-server:
-  port: 8762
-
-info:
-  app:
-    name: ${spring.application.name}
+    name: secured-service
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: e17e9b5f1d6b290ddc7c
+            client-secret: f749049e11bfc2ec212649cc42853553d5be89d8
 
 eureka:
   client:
     registerWithEureka: true
-    serviceUrl: 
+    serviceUrl:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
     healthcheck:
       enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
 
 management:
   endpoints:
@@ -26,3 +35,11 @@ management:
           - env
           - health
           - info
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.boot.autoconfigure: INFO
