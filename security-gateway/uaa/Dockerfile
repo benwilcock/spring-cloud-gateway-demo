@@ -18,9 +18,9 @@ RUN mkdir -p $CLOUD_FOUNDRY_CONFIG_PATH
 COPY uaa.yml $CLOUD_FOUNDRY_CONFIG_PATH
 
 
-# Configure the Tomcat Management Console
+# Configure Tomcat
 COPY tomcat-users.xml $CATALINA_HOME/conf
-COPY server.xml $CATALINA_HOME/conf
+COPY server.xml $CATALINA_HOME/conf 
 COPY manager.xml $CATALINA_HOME/webapps/manager/META-INF/context.xml
 COPY host-manager.xml $CATALINA_HOME/webapps/host-manager/META-INF/context.xml
 

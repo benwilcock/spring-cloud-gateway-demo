@@ -6,7 +6,7 @@ services:
     expose: 
       - "8090"
     ports:
-      - "127.0.0.1:8888:8090"
+      - "127.0.0.1:8090:8090"
   # registry:
   #   image: scg-demo-registry:latest
   #   container_name: registry
