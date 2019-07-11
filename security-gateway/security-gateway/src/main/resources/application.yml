@@ -1,28 +1,40 @@
 server:
-  port: 8760
+  port: 8080
 
 spring:
+  autoconfigure:
+    # TODO: remove when fixed https://github.com/spring-projects/spring-security/issues/6314
+    exclude: org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
   application:
-    name: gateway  
-  cloud:
-    gateway:
-      routes:
-      - id: service
-        uri: lb://service
-        predicates:
-        - Path=/service/**
-        filters:
-        - StripPrefix=1
-      - id: registry
-        uri: lb://registry
-        predicates:
-        - Path=/registry/**
-        filters:
-        - StripPrefix=1
-      - id: eureka
-        uri: lb://registry
-        predicates:
-        - Path=/eureka/**
+    name: gateway
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 245074661050-ti489pdtll2uphnnr9flpn9dg3madc9e.apps.googleusercontent.com
+            client-secret: O01pVb3JYhkINW5iLwGbxuCb
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: service
+#        uri: lb://service
+#        predicates:
+#        - Path=/service/**
+#        filters:
+#        - StripPrefix=1
+#      - id: registry
+#        uri: lb://registry
+#        predicates:
+#        - Path=/registry/**
+#        filters:
+#        - StripPrefix=1
+#      - id: eureka
+#        uri: lb://registry
+#        predicates:
+#        - Path=/eureka/**
 
 info:
   app:
@@ -45,3 +57,12 @@ management:
           - env
           - health
           - info
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.boot.autoconfigure: DEBUG

@@ -3,6 +3,9 @@
 echo "Performing a clean Maven build"
 ./mvnw clean package -DskipTests=true
 
+echo "Setting the default builder for pack"
+pack set-default-builder cloudfoundry/cnb:bionic
+
 echo "Packing the Service"
 cd service
 pack build scg-demo-service --env "BP_JAVA_VERSION=8.*"
