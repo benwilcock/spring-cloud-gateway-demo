@@ -1,28 +1,35 @@
 version: '3'
 services:
-  registry:
-    image: scg-demo-registry:latest
-    container_name: registry
+  uaa:
+    image: scg-demo-uaa:latest
+    container_name: uaa
     expose: 
-      - "8761"
-  greeting-service:
-    image: scg-demo-secured-service:latest
-    container_name: secured-greeting-service
-    expose: 
-      - "8762"
-    depends_on: 
-      - "registry"
-    environment:
-      - JAVA_OPTS=
-        -DEUREKA_SERVER=http://registry:8761/eureka
-  gateway:
-    image: scg-demo-security-gateway:latest
-    container_name: security-gateway
+      - "8090"
     ports:
-      - "127.0.0.1:8080:8760"
-    depends_on: 
-      - registry
-      - greeting-service
-    environment:
-      - JAVA_OPTS=
-        -DEUREKA_SERVER=http://registry:8761/eureka
+      - "127.0.0.1:8888:8090"
+  # registry:
+  #   image: scg-demo-registry:latest
+  #   container_name: registry
+  #   expose: 
+  #     - "8761"
+  # greeting-service:
+  #   image: scg-demo-secured-service:latest
+  #   container_name: secured-greeting-service
+  #   expose: 
+  #     - "8762"
+  #   depends_on: 
+  #     - "registry"
+  #   environment:
+  #     - JAVA_OPTS=
+  #       -DEUREKA_SERVER=http://registry:8761/eureka
+  # gateway:
+  #   image: scg-demo-security-gateway:latest
+  #   container_name: security-gateway
+  #   ports:
+  #     - "127.0.0.1:8080:8760"
+  #   depends_on: 
+  #     - registry
+  #     - greeting-service
+  #   environment:
+  #     - JAVA_OPTS=
+  #       -DEUREKA_SERVER=http://registry:8761/eureka

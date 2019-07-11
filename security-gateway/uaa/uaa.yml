@@ -5,8 +5,7 @@ encryption:
   active_key_label: uaa-encryption-key-1
   encryption_keys:
   - label: uaa-encryption-key-1
-    passphrase: secr3t
-    # passphrase: ((uaa_encryption_key_1))
+    passphrase: ((uaa_encryption_key_1))
   
 
 oauth:

@@ -3,6 +3,11 @@
 echo "Performing a clean Maven build"
 ./mvnw clean package -DskipTests=true
 
+echo "Building the UAA"
+cd uaa
+docker build --tag scg-demo-uaa .
+cd ..
+
 echo "Packing the Service"
 cd secured-service
 pack build scg-demo-secured-service --env "BP_JAVA_VERSION=8.*"
