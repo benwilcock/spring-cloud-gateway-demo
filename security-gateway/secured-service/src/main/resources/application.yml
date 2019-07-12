@@ -6,12 +6,11 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8090/uaa/token_keys
+          jwk-set-uri: http://uaa:8090/uaa/token_keys
 
 logging:
   level:
     root: INFO
-    org.springframework.web: TRACE
-    org.springframework.security: TRACE
-    org.springframework.security.oauth2: TRACE
-#    org.springframework.boot.autoconfigure: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO

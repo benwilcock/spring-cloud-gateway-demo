@@ -6,32 +6,21 @@ services:
     expose:
       - "8090"
     ports:
-      - "127.0.0.1:8090:8090"
-#  registry:
-#    image: scg-demo-registry:latest
-#    container_name: registry
-#    expose:
-#       - "8761"
-  gateway:
-    image: scg-demo-security-gateway:latest
-    container_name: security-gateway
-    ports:
-      - "127.0.0.1:8080:8080"
-    depends_on:
-#      - registry
-      - secured-service
-#    environment:
-#      - JAVA_OPTS=
-#       -DEUREKA_SERVER=http://registry:8761/eureka
+      - "8090:8090"
   secured-service:
     image: scg-demo-secured-service:latest
-    container_name: secured-service
+    container_name: resource
     expose:
       - "9000"
     ports:
-      - "127.0.0.1:9000:9000"
-#    depends_on:
-#      - "registry"
-#    environment:
-#      - JAVA_OPTS=
-#        -DEUREKA_SERVER=http://registry:8761/eureka
+      - "9000:9000"
+  gateway:
+    image: scg-demo-security-gateway:latest
+    container_name: gateway
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - secured-service
+      - uaa

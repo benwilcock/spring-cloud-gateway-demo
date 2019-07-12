@@ -32,5 +32,5 @@ CMD ["catalina.sh", "run"]
 EXPOSE 8090
 
 # To build use `docker build --tag uaa .`
-# To run use `docker run -p 8888:8090 uaa`
-# To login use `http://localhost:8888/uaa/login` User: user1 Password: password
+# To run use `docker run -p 8888:8090 --name=uaa uaa`
+# To test use `http://localhost:8888/uaa/login` User: user1 Password: password

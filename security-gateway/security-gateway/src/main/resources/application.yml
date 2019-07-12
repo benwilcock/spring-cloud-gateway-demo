@@ -4,11 +4,10 @@ server:
 logging:
   level:
     root: INFO
-    org.springframework.web: TRACE
-    org.springframework.security: TRACE
-    org.springframework.security.oauth2: TRACE
-    org.springframework.cloud.gateway: TRACE
-#    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.cloud.gateway: INFO
 
 spring:
   autoconfigure:
@@ -30,7 +29,7 @@ spring:
         provider:
           uaa:
             authorization-uri: http://localhost:8090/uaa/oauth/authorize
-            token-uri: http://localhost:8090/uaa/oauth/token
-            user-info-uri: http://localhost:8090/uaa/userinfo
+            token-uri: http://uaa:8090/uaa/oauth/token
+            user-info-uri: http://uaa:8090/uaa/userinfo
             user-name-attribute: sub
-            jwk-set-uri: http://localhost:8090/uaa/token_keys
+            jwk-set-uri: http://uaa:8090/uaa/token_keys

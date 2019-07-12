@@ -1,5 +1,5 @@
 issuer:
-  uri: http://localhost:8090/uaa
+  uri: http://uaa:8090/uaa
 
 encryption:
   encryption_keys:
