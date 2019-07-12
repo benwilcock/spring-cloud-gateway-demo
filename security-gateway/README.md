@@ -1,11 +1,12 @@
 
+## Getting up and Running...
 
 ````bash
 ./build-images.sh
 docker-compose up
 ````
 
-In a browser...
+In an INCOGNITO or PRIVATE browser window...
 
 [http://localhost:8080/resource](http://localhost:8080/resource)
 
@@ -19,4 +20,11 @@ will print out your Subject's identity GUID.
 
 > Resource was accessed by a584b8b8-eaf2-4280-b9c3-12f65cf8524b (sub)
 
-When you're done use `Ctrl-C` to stop the containers, `docker-compose rm -f` to remove leftovers. 
+
+## Cleaning Up
+
+When you're done use `Ctrl-C` to stop the containers, `docker-compose rm -f` to remove leftovers.
+
+## Want to go again? 
+
+Probably have to clear your cookies and restart the Docker bits... 
