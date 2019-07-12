@@ -7,7 +7,7 @@ docker-compose up
 
 In a browser...
 
-[http://localhost:8080/resoure](http://localhost:8080/resoure)
+[http://localhost:8080/resource](http://localhost:8080/resource)
 
 You'll be asked to login, use Username: `user1` and Password: `password`.
 
