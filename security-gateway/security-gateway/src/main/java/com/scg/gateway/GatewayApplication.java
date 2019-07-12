@@ -27,7 +27,7 @@ public class GatewayApplication {
 		//@formatter:off
 		return builder.routes()
 						.route("resource", r -> r.path("/resource")
-										.filters(f -> f.filter(filterFactory.apply()))
+										.filters(f -> f.filters(filterFactory.apply()).removeRequestHeader("Cookie"))
 										.uri("http://resource:9000"))
 						.build();
 		//@formatter:on
