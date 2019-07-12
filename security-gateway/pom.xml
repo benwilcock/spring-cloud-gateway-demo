@@ -11,7 +11,7 @@
 
     <modules>
         <module>secured-service</module>
-        <module>registry</module>
+<!--        <module>registry</module>-->
         <module>security-gateway</module>
     </modules>
 

@@ -1,68 +1,36 @@
 server:
   port: 8080
 
+logging:
+  level:
+    root: INFO
+    org.springframework.web: TRACE
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
+    org.springframework.cloud.gateway: TRACE
+#    org.springframework.boot.autoconfigure: DEBUG
+
 spring:
   autoconfigure:
     # TODO: remove when fixed https://github.com/spring-projects/spring-security/issues/6314
     exclude: org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
-  application:
-    name: gateway
   thymeleaf:
     cache: false
   security:
     oauth2:
       client:
         registration:
-          google:
-            client-id: 245074661050-ti489pdtll2uphnnr9flpn9dg3madc9e.apps.googleusercontent.com
-            client-secret: O01pVb3JYhkINW5iLwGbxuCb
-#  cloud:
-#    gateway:
-#      routes:
-#      - id: service
-#        uri: lb://service
-#        predicates:
-#        - Path=/service/**
-#        filters:
-#        - StripPrefix=1
-#      - id: registry
-#        uri: lb://registry
-#        predicates:
-#        - Path=/registry/**
-#        filters:
-#        - StripPrefix=1
-#      - id: eureka
-#        uri: lb://registry
-#        predicates:
-#        - Path=/eureka/**
-
-info:
-  app:
-    name: ${spring.application.name}
-
-eureka:
-  client:
-    registerWithEureka: true
-    serviceUrl: 
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-    healthcheck:
-      enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - mappings
-          - env
-          - health
-          - info
-
-logging:
-  level:
-    root: INFO
-    org.springframework.web: INFO
-    org.springframework.security: INFO
-    org.springframework.security.oauth2: INFO
-    org.springframework.cloud.gateway: TRACE
-    org.springframework.boot.autoconfigure: DEBUG
+          login-client:
+            provider: uaa
+            client-id: login-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,email,resource.read
+        provider:
+          uaa:
+            authorization-uri: http://localhost:8090/uaa/oauth/authorize
+            token-uri: http://localhost:8090/uaa/oauth/token
+            user-info-uri: http://localhost:8090/uaa/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: http://localhost:8090/uaa/token_keys

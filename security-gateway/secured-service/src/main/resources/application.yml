@@ -2,44 +2,16 @@ server:
   port: 9000
 
 spring:
-  application:
-    name: secured-service
-  thymeleaf:
-    cache: false
   security:
     oauth2:
-      client:
-        registration:
-          github:
-            client-id: e17e9b5f1d6b290ddc7c
-            client-secret: f749049e11bfc2ec212649cc42853553d5be89d8
-
-eureka:
-  client:
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-    healthcheck:
-      enabled: true
-
-info:
-  app:
-    name: ${spring.application.name}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - mappings
-          - env
-          - health
-          - info
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8090/uaa/token_keys
 
 logging:
   level:
     root: INFO
-    org.springframework.web: INFO
-    org.springframework.security: INFO
-    org.springframework.security.oauth2: INFO
-    org.springframework.boot.autoconfigure: INFO
+    org.springframework.web: TRACE
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
+#    org.springframework.boot.autoconfigure: INFO
