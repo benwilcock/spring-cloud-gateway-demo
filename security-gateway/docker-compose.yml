@@ -12,8 +12,6 @@ services:
     container_name: resource
     expose:
       - "9000"
-    ports:
-      - "9000:9000"
   gateway:
     image: scg-demo-security-gateway:latest
     container_name: gateway
