@@ -12,11 +12,11 @@ public class SecurityConfig {
   SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws Exception {
     http
             .authorizeExchange()
-            .pathMatchers("/resource").hasAuthority("SCOPE_resource.read")
-            .anyExchange().authenticated()
-            .and()
+              .pathMatchers("/resource").hasAuthority("SCOPE_resource.read")
+              .anyExchange().authenticated()
+              .and()
             .oauth2ResourceServer()
-            .jwt();
+              .jwt();
     return http.build();
   }
 }

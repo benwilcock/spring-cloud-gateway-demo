@@ -24,13 +24,11 @@ public class GatewayApplication {
 
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-		//@formatter:off
 		return builder.routes()
 						.route("resource", r -> r.path("/resource")
 										.filters(f -> f.filters(filterFactory.apply()).removeRequestHeader("Cookie"))
 										.uri("http://resource:9000"))
 						.build();
-		//@formatter:on
 	}
 
 	@GetMapping("/")
