@@ -11,6 +11,8 @@ spring:
 logging:
   level:
     root: INFO
+    com.scg.service: TRACE
     org.springframework.web: INFO
+    org.springframework.web.HttpLogging: DEBUG
     org.springframework.security: INFO
     org.springframework.security.oauth2: INFO

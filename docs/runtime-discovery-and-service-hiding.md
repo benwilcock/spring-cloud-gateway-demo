@@ -1,4 +1,4 @@
-# Hiding Services & Runtime Discovery 
+# Hiding Services & Runtime Discovery with Spring Cloud Gateway
 
 [Ben Wilcock][30] – Spring Marketing, Pivotal.
 [Brian McClain][31] – Technical Marketing, Pivotal.

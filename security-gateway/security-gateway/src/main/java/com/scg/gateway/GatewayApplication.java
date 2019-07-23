@@ -25,16 +25,19 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-						.route("resource", r -> r.path("/resource")
-										.filters(f -> f.filters(filterFactory.apply()).removeRequestHeader("Cookie"))
-										.uri("http://resource:9000"))
-						.build();
+				.route("resource", r -> r.path("/resource")
+					.filters(f -> f.filters(filterFactory.apply())
+									.removeRequestHeader("Cookie")) // Prevents client cookie reset
+					.uri("http://resource:9000")) // Taking advantage of docker naming
+//				.route("actuator", r -> r.path("/actuator/**")
+//					.uri("http://gateway:8080"))
+				.build();
 	}
 
 	@GetMapping("/")
 	public String index(Model model,
-											@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
-											@AuthenticationPrincipal OAuth2User oauth2User) {
+						@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
+						@AuthenticationPrincipal OAuth2User oauth2User) {
 		model.addAttribute("userName", oauth2User.getName());
 		model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName());
 		model.addAttribute("userAttributes", oauth2User.getAttributes());
@@ -44,5 +47,4 @@ public class GatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
-
 }
