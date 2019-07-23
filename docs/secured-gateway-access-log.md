@@ -2,17 +2,12 @@
 
 These logging highlights illustrate what's happening during the OAuth2 flow when  JOSE/JWT.
 
-First, a request is sent to `http://localhost:8080/resource and this is intercepted by the API gateway. The gateway expects all requestes to be authenticated, so it immediately gets to work:
+First, a request is sent to `http://localhost:8080/resource and this is intercepted by the API gateway. 
+
+The gateway expects all requestes to be authenticated, so it immediately asks the authentication provider (the UAA) to authenticate the user via the `authentication-uri` of `http://localhost:8090/uaa/oauth/authorize`. The UAA then steps in and presents the user with an authentication challenge:
 
 ```bash
 uaa | DEBUG --- UaaMetricsFilter: Successfully matched URI: /uaa/oauth/authorize to a group: /ui
-```
-
-The gateway asks the authentication provider to authenticate the user via the `authentication-uri` of `http://localhost:8090/uaa/oauth/authorize`. 
-
-The UAA then steps in and presents the user with an authentication challenge:
-
-```bash
 uaa | DEBUG --- ChainedAuthenticationManager: Attempting chained authentication of org.springframework.security.authentication.UsernamePasswordAuthenticationToken@3ce6bcf6: Principal: user1; Credentials: [PROTECTED]; Authenticated: false; Details: remoteAddress=172.23.0.1, sessionId=<SESSION>; Not granted any authorities with manager:org.cloudfoundry.identity.uaa.authentication.manager.CheckIdpEnabledAuthenticationManager@3c5169cf required:null
 uaa | DEBUG --- AuthzAuthenticationManager: Processing authentication request for user1
 uaa | DEBUG --- AuthzAuthenticationManager: Password successfully matched for userId[user1]:61b7c1c4-a0c0-44f7-a709-a8638068d137
@@ -20,9 +15,9 @@ uaa | INFO --- Audit: IdentityProviderAuthenticationSuccess ('user1'): principal
 uaa | INFO --- Audit: UserAuthenticationSuccess ('user1'): principal=61b7c1c4-a0c0-44f7-a709-a8638068d137, origin=[remoteAddress=172.23.0.1, sessionId=<SESSION>], identityZoneId=[uaa]
 ```
 
-The UAA has confirmed the users identity has been as `user1` and their principal id has been assigned as `1b7c1c4-a0c0-44f7-a709-a8638068d137`.
+Above, the UAA has confirmed the users identity has been as `user1` and their principal id has been assigned as `1b7c1c4-a0c0-44f7-a709-a8638068d137`.
 
-The UAA will now ask the user to 'Authorise' the `login-client` application (the gateway):
+The UAA will now ask the user to 'Authorise' the `login-client` application (the gateway) and give it access to the users profile:
 
 ```bash
 uaa | DEBUG --- UaaMetricsFilter: Successfully matched URI: /uaa/oauth/authorize to a group: /ui
@@ -32,7 +27,7 @@ uaa | DEBUG --- JdbcApprovalStore: adding approval: [[61b7c1c4-a0c0-44f7-a709-a8
 uaa | INFO --- Audit: TokenIssuedEvent ('["resource.read","openid","email"]'): principal=61b7c1c4-a0c0-44f7-a709-a8638068d137, origin=[caller=login-client, details=(remoteAddress=172.23.0.4, clientId=login-client)], identityZoneId=[uaa]
 ```
 
-The gateway application `login-client` has now been granted access to the users profile, which includes the scope `resource.read`.
+Above, the gateway application `login-client` has now been granted access to the users profile, which includes the scope `resource.read`.
 
 The gateway now has a JWT `access_token` (part redacted in the log for security):
 
@@ -48,14 +43,14 @@ gateway | DEBUG --- [or-http-epoll-2] org.springframework.web.HttpLogging : [434
 gateway | DEBUG --- [or-http-epoll-2] org.springframework.web.HttpLogging      : [3c76d40a] Decoded [{user_id=61b7c1c4-a0c0-44f7-a709-a8638068d137, user_name=user1, name=first1 last1, given_name=first1 (truncated)...]
 ```
 
-The JWT token checked out, so the gateway starts forwarding the request to the resource server's `/resource` endpoint:
+The JWT token is deemed to be authentic by the gateway, so the gateway starts forwarding the request to the resource server's `/resource` endpoint:
 
 ```bash
 gateway | DEBUG --- [or-http-epoll-2] o.s.c.g.h.RoutePredicateHandlerMapping   : Route matched: resource
 gateway | DEBUG --- [or-http-epoll-2] o.s.c.g.h.RoutePredicateHandlerMapping   : Mapping [Exchange: GET http://localhost:8080/resource] to Route{id='resource', uri=http://resource:9000, order=0, predicate=org.springframework.cloud.gateway.support.ServerWebExchangeUtils$$Lambda$334/1074263646@2fb64b12, gatewayFilters=[OrderedGatewayFilter{delegate=org.springframework.cloud.security.oauth2.gateway.TokenRelayGatewayFilterFactory$$Lambda$336/1107412069@42187950, order=0}, OrderedGatewayFilter{delegate=org.springframework.cloud.gateway.filter.factory.RemoveRequestHeaderGatewayFilterFactory$$Lambda$339/1139814130@210d549e, order=0}]}
 ```
 
- The resource server then contacts the UAA...
+ The resource server then contacts the UAA. It also wants to authenticate the users JWT `access_token`:
 
 ```bash
 uaa | DEBUG --- UaaMetricsFilter: Successfully matched URI: /uaa/token_keys to a group: /oauth-oidc
@@ -63,7 +58,9 @@ uaa | DEBUG --- SecurityFilterChainPostProcessor$HttpsEnforcementFilter: Filter 
 resource | DEBUG --- [or-http-epoll-2] org.springframework.web.HttpLogging      : [472e353f] Decoded "{"keys":[{"kty":"RSA","e":"AQAB","use":"sig","kid":"key-id-1","alg":"RS256","value":"-----BEGIN PUB (truncated)...
 ```
 
-The resource server is also checking the validity of the JWT token against the keys held by the UAA. The keys check out, so the resource server decodes the JWT `access_token` and allows the user to access the `/resource` endpoint...
+Above, the resource server checks the validity of the JWT token against the keys held by the UAA.
+
+The keys check out, so the resource server decodes the JWT `access_token` and allows the user to access the `/resource` endpoint:
 
 ```bash
 resource | TRACE 1 --- [or-http-epoll-2] c.scg.service.SecuredServiceApplication  : ***** JWT Headers: {jku=https://localhost:8080/uaa/token_keys, kid=key-id-1, typ=JWT, alg=RS256}
@@ -72,4 +69,6 @@ resource | TRACE 1 --- [or-http-epoll-2] c.scg.service.SecuredServiceApplication
 resource | DEBUG --- [or-http-epoll-2] org.springframework.web.HttpLogging      : [5becb7ae] Writing "Resource accessed by: user1 (with subjectId: 61b7c1c4-a0c0-44f7-a709-a8638068d137)"
 ```
 
- Information in the JWT is used to show who read the resource - "Resource accessed by: user1 (with subjectId: 61b7c1c4-a0c0-44f7-a709-a8638068d137)".
+ Information encoded into the JWT is then used to show who read the resource - "Resource accessed by: user1 (with subjectId: 61b7c1c4-a0c0-44f7-a709-a8638068d137)".
+
+ You can decode the token at [https://jwt.io/](https://jwt.io/)
