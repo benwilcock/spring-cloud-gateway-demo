@@ -2,7 +2,7 @@
 
 These logging highlights illustrate what's happening during the OAuth2 flow when  JOSE/JWT.
 
-First, a request is sent to `http://localhost:8080/resource and this is intercepted by the API gateway. 
+First, a request is sent to [http://localhost:8080/resource](http://localhost:8080/resource) and this is intercepted by the API gateway.
 
 The gateway expects all requestes to be authenticated, so it immediately asks the authentication provider (the UAA) to authenticate the user via the `authentication-uri` of `http://localhost:8090/uaa/oauth/authorize`. The UAA then steps in and presents the user with an authentication challenge:
 

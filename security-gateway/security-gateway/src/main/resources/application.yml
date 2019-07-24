@@ -34,3 +34,13 @@ spring:
             user-info-uri: http://uaa:8090/uaa/userinfo
             user-name-attribute: sub
             jwk-set-uri: http://uaa:8090/uaa/token_keys
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: resource
+#          uri: http://resource:9000
+#          predicates:
+#            - Path=/resource
+#          filters:
+#            - TokenRelay=
+#            - RemoveRequestHeader=Cookie
