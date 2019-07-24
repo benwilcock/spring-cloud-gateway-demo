@@ -18,13 +18,13 @@ oauth:
       - approvals.me
       - oauth.approvals
   clients:
-    login-client:
-      name: Login Client
+    gateway:
+      name: gateway
       secret: secret
       authorized-grant-types: authorization_code
       scope: openid,profile,email,resource.read
       authorities: uaa.resource
-      redirect-uri: http://localhost:8080/login/oauth2/code/login-client
+      redirect-uri: http://localhost:8080/login/oauth2/code/gateway
 
 scim:
   groups:

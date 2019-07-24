@@ -20,9 +20,9 @@ spring:
     oauth2:
       client:
         registration:
-          login-client:
+          gateway:
             provider: uaa
-            client-id: login-client
+            client-id: gateway
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
