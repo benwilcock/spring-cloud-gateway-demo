@@ -27,7 +27,7 @@ public class GatewayApplication {
 		return builder.routes()
 				.route("resource", r -> r.path("/resource")
 					.filters(f -> f.filters(filterFactory.apply())
-									.removeRequestHeader("Cookie")) // Prevents clients cookie being sent downstream
+									.removeRequestHeader("Cookie")) // Prevents cookie being sent downstream
 					.uri("http://resource:9000")) // Taking advantage of docker naming
 				.build();
 	}
