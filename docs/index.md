@@ -29,6 +29,10 @@ In this first article [Getting Started with Spring Cloud Gateway][6] we begin by
 
 In this second installment we look at [Service Hiding & Runtime Discovery][8]. We construct a hidden network of services using Docker and then create a Spring Cloud Gateway reverse-proxy to police our network boundary and facilitate access to these hidden services. As part of the demo, we also illustrate how Spring Cloud Eureka Server can allow the discovery of services at runtime.
 
+## Episode 3: Securing Services with Spring Cloud Gateway
+
+In this third installment we'll [Secure Access to Services with Spring Cloud Gateway][9]. Once again, Docker will be used simulate a corporate network and we'll use Cloud Foundry’s open-source User Account & Authentication Server (more commonly referred to as the UAA) as our OAuth2 Authentication Provider.
+
 ----
 
 [License][7]
@@ -42,3 +46,4 @@ In this second installment we look at [Service Hiding & Runtime Discovery][8]. W
 [6]: getting_started.md
 [7]: LICENSE
 [8]: runtime-discovery-and-service-hiding.md
+[9]: secured-gateway.md
