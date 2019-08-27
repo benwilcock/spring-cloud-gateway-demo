@@ -2,7 +2,7 @@
 
 Code and articles to help you get started with [Spring Cloud Gateway][3].
 
-You can learn about the code read the accompanying articles [here][4].
+For more information, see the accompanying pages [here][4].
 
 ## Authors
 
