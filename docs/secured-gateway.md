@@ -7,7 +7,7 @@ So far in this series, we've covered [Getting Started][3] and [Hiding Services][
 
 To secure our services, we'll use the Token Relay pattern supported by OAuth 2.0 and the Javascript Object Signing & Encryption (JOSE) and JSON Web Tokens standards. This will give our users a means to identify themselves, authorize applications to view their profile, and access the secured resources behind the gateway.
 
-> All the demo code is available in [this repository on GitHub][6] in the `secured-gateway` folder.
+> All the demo code is available in [this repository on GitHub][13] in the `secured-gateway` folder.
 
 Before we run the demo, I want to draw your attention to the major components within it and how they were created. The diagram below shows the overall system design. It consists of a network of three services: a Single Sign-On Server, an API Gateway Server, and a Resource Server.
 
@@ -243,6 +243,7 @@ Why not have your developer dreams come true this year by signing up for [Spring
 [10]: secured-gateway-access-log.md
 [11]: https://springoneplatform.io
 [12]: https://springoneplatform.io/2019/convince-your-manager
+[13]: https://github.com/benwilcock/spring-cloud-gateway-demo/tree/master/security-gateway
 
 
 
