@@ -7,7 +7,7 @@ RUN apt-get update \
 # Download the UAA Web Application Archive from Maven Central
 ENV UAA_VERSION=4.30.0
 RUN wget \
-      http://central.maven.org/maven2/org/cloudfoundry/identity/cloudfoundry-identity-uaa/$UAA_VERSION/cloudfoundry-identity-uaa-$UAA_VERSION.war \
+      https://repo1.maven.org/maven2/org/cloudfoundry/identity/cloudfoundry-identity-uaa/$UAA_VERSION/cloudfoundry-identity-uaa-$UAA_VERSION.war \
       -O $CATALINA_HOME/webapps/uaa.war
 
 # Configure the UAA
