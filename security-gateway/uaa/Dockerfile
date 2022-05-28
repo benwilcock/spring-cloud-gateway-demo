@@ -1,4 +1,4 @@
-FROM tomcat:9.0.21-jdk8-adoptopenjdk-hotspot
+FROM tomcat:jdk8-adoptopenjdk-hotspot
 RUN apt-get update \
     && apt-get -y install --no-install-recommends wget \
     && rm -rf /var/lib/apt/lists/*
